@@ -2,10 +2,13 @@
   "name": "youpin-img",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "dist/youpin-img.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "test-watch": "mocha --compilers js:babel-core/register --watch --bail"
+    "test": "mocha --compilers js:babel-core/register --bail",
+    "test-watch": "mocha --compilers js:babel-core/register --watch --bail",
+    "build": "microbundle -o dist",
+    "dev": "microbundle watch -o dist",
+    "publish":"npm run test && npm run build"
   },
   "repository": {
     "type": "git",
@@ -25,6 +28,7 @@
     "babel-preset-latest": "^6.24.1",
     "babel-preset-stage-3": "^6.24.1",
     "chai": "^4.1.2",
+    "microbundle": "^0.5.1",
     "mocha": "^5.2.0"
   },
   "dependencies": {

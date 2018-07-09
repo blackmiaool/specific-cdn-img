@@ -36,7 +36,7 @@ export default class YoupinImg {
         }
         return this;
     }
-    setSize(w, h) {
+    resize({w, h}) {
         switch (this.mode) {
             case "standard":
                 this.standardAddParams({ w, h });
