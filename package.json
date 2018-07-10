@@ -2,7 +2,7 @@
   "name": "youpin-img",
   "version": "1.0.0",
   "description": "",
-  "main": "dist/youpin-img.js",
+  "main": "dist/youpin-img.cjs.js",
   "scripts": {
     "webpack": "webpack",
     "test": "mocha --compilers js:babel-core/register --bail",
