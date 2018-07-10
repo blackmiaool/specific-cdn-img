@@ -1,4 +1,4 @@
-const URL=require('url');
+import URL from 'url';
 
 function parse(url){
     const ret=URL.parse(url,true);
