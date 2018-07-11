@@ -39,7 +39,7 @@ const url = new YoupinImg(
 参数：无
 返回：{w:h}
 图片上不含尺寸时，返回
-```json
+```javascript
 {w : undefined, h : undefined }
 ```
 还有其他api，不建议用户直接使用，详见源码
