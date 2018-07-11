@@ -1,6 +1,6 @@
 {
   "name": "youpin-img",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "",
   "main": "dist/youpin-img.cjs.js",
   "scripts": {
@@ -31,9 +31,10 @@
     "babel-preset-stage-3": "^6.24.1",
     "chai": "^4.1.2",
     "mocha": "^5.2.0",
-    "webpack": "^4.15.1"
+    "webpack": "^4.15.1",
+    "webpack-cli": "^3.0.8"
   },
   "dependencies": {
-    "url": "^0.11.0"
+    "url": "*"
   }
 }

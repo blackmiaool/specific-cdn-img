@@ -14,7 +14,8 @@ const cjsOutput = {
         filename: "youpin-img.cjs.js",
         library: "youpin-img",
         libraryTarget: "commonjs"
-    }
+    },
+    externals: ["url"],
 };
 const config = {
     entry: "./index.js",
