@@ -1,4 +1,4 @@
-import YoupinImg from "../index";
+import YoupinImg from "../dist/youpin-img.js";
 
 const chai = require("chai");
 

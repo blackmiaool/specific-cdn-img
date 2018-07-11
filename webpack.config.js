@@ -1,6 +1,7 @@
 var path = require("path");
 var webpack = require("webpack");
 const umdOutput = {
+    entry: "./index.js",
     output: {
         path: path.resolve(__dirname, "dist"),
         filename: "youpin-img.umd.js",
@@ -9,22 +10,17 @@ const umdOutput = {
     }
 };
 const cjsOutput = {
+    entry: "./index.js",
     output: {
         path: path.resolve(__dirname, "dist"),
-        filename: "youpin-img.cjs.js",
-        library: "youpin-img",
-        libraryTarget: "commonjs"
+        filename: "youpin-img.js",
+        library: "YoupinImg",
+        libraryTarget: "umd",
+        globalObject: "this"
     },
     externals: ["url"],
 };
 const config = {
-    entry: "./index.js",
-    output: {
-        path: path.resolve(__dirname, "dist"),
-        filename: "youpin-img.umd.js",
-        library: "youpin-img",
-        libraryTarget: "umd"
-    },
     mode: "production",
     module: {
         rules: [
