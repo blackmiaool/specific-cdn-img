@@ -1,113 +1,126 @@
-import URL from 'url';
+import URL from "url";
 
-function parse(url){
-    const ret=URL.parse(url,true);
+function parse(url) {
+    const ret = URL.parse(url, true);
     delete ret.search;
     return ret;
 }
-export default class YoupinImg {
-    constructor(url) {    
-        const base=typeof document==='undefined'?'https://':location.href;
-        url=URL.resolve('https://',url);
-        this.a = parse(url);
-        if (url.match(/@base/)) {
-            this.mode = "kingsoft";
-        } else if (/app\/shop\/img\?/.test(url)) {
-            this.mode = "standard";
-        } else {
-            this.mode = "unkown";
-        }
+class Mode {
+    constructor(url, a) {
+        this.a = a;
     }
-    get url(){
-        return URL.format(this.a); 
+    get url() {
+        return URL.format(this.a);
     }
-    set url(value){
+    set url(value) {
         console.warn("u can't set its url");
     }
+}
+class StandardMode extends Mode {
+    constructor(...props) {
+        super(...props);
+    }
     setWebp() {
-        switch (this.mode) {
-            case "standard":
-                this.standardAddParam('t','webp');
-                break;
-            case "kingsoft": {
-                this.kingsoftAddParam('F','webp');
-                break;
-            }
-        }
+        this.addParam("t", "webp");
         return this;
     }
-    resize({w, h}) {
-        switch (this.mode) {
-            case "standard":
-                this.standardAddParams({ w, h });
-                break;
-            case "kingsoft": {
-                let inner = {
-                    w: this.kingsoftGetParam("w"),
-                    h: this.kingsoftGetParam("h")
-                };
-                if (inner.w && inner.h) {
-                    let scalew =w / this.kingsoftGetParam("etw")||1;
-                    let scaleh=h / this.kingsoftGetParam("eth")||1;
-                    this.kingsoftAddParams({
-                        w: Math.round(scalew * inner.w),
-                        h: Math.round(scaleh * inner.h)
-                    });
-                }
-                this.kingsoftAddParams({
-                    etw: w,
-                    eth: h
-                });
 
-                break;
-            }
-        }
+    getParam(key) {
+        return this.a.query[key];
+    }
+    addParams(map) {
+        Object.assign(this.a.query, map);
+        return this;
+    }
+    addParam(key, value) {
+        this.a.query[key] = value;
         return this;
     }
     getSize() {
-        if (this.mode === "standard") {
-            return {
-                w: this.standardGetParam("w"),
-                h: this.standardGetParam("h")
-            };
-        } else if (this.mode === "kingsoft") {
-            return {
-                w: this.kingsoftGetParam("etw"),
-                h: this.kingsoftGetParam("eth")
-            };
-        }
+        return {
+            w: this.getParam("w"),
+            h: this.getParam("h")
+        };
     }
-    standardGetParam(key) {        
-        return this.a.query[key];        
+    resize({w,h}) {
+        this.addParams({ w, h });
+        return this;
     }
-    kingsoftGetParam(key) {
+}
+class KingSoftMode extends Mode {
+    constructor(...props) {
+        super(...props);
+    }
+    setWebp() {
+        this.addParam("F", "webp");
+        return this;
+    }
+    getParam(key) {
         return (this.a.pathname.match(new RegExp(`[?|&]${key}=(\\d+)`)) ||
             [])[1];
     }
-    standardAddParams(map) {
-        Object.assign(this.a.query,map);
+    addParams(map) {
+        this.addParam(undefined, undefined, map);
+        return this;
     }
-    standardAddParam(key, value) {
-        this.a.query[key]=value;
-    }
-    kingsoftAddParams(map) {
-        this.kingsoftAddParam(undefined, undefined, map);
-    }
-    kingsoftAddParam(key, value, map) {
-        
-        const action = (this.a.pathname.match(/@[\s\S]+?(&|$)/, "?") || [""])[0];
+    addParam(key, value, map) {
+        const action = (this.a.pathname.match(/@[\s\S]+?(&|$)/, "?") || [
+            ""
+        ])[0];
         let pathname = this.a.pathname;
         if (action) {
             pathname = pathname.replace(action, "?");
         }
         let paramsMap = map || { [key]: value };
-        let pathnameObj=parse(pathname);
-        Object.assign(pathnameObj.query,paramsMap)
-        pathname=URL.format(pathnameObj);        
+        let pathnameObj = parse(pathname);
+        Object.assign(pathnameObj.query, paramsMap);
+        pathname = URL.format(pathnameObj);
         if (action) {
             pathname = pathname.replace("?", action);
         }
         this.a.pathname = pathname;
+        return this;
+    }
+    getSize() {
+        return {
+            w: this.getParam("etw"),
+            h: this.getParam("eth")
+        };
+    }
+    resize({w,h}) {
+        let inner = {
+            w: this.getParam("w"),
+            h: this.getParam("h")
+        };
+        if (inner.w && inner.h) {
+            let scalew = w / this.getParam("etw") || 1;
+            let scaleh = h / this.getParam("eth") || 1;
+            this.addParams({
+                w: Math.round(scalew * inner.w),
+                h: Math.round(scaleh * inner.h)
+            });
+        }
+        this.addParams({
+            etw: w,
+            eth: h
+        });
+        return this;
     }
 }
+const modeMap = {
+    standard: StandardMode,
+    kingsoft: KingSoftMode
+};
+export default function YoupinImg(url) {
+    url = URL.resolve("https://", url);
+    const a = parse(url);
+    if (!YoupinImg.modeChecker) {
+        console.warn("mode checker is needed");
+    }
+    const mode = YoupinImg.modeChecker(url, a);
+    if (!mode) {
+        console.warn(`can't determine the mode of ${url}`);
+    }
 
+    return new modeMap[mode](url, a);
+}
