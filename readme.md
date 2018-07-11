@@ -26,17 +26,17 @@ const url = new YoupinImg(
 
 #### setWebp
 让图片变成webp格式
-参数：无
+参数：无   
 返回：YoupinImg实例
 
 #### resize
 修改图片尺寸
-参数：{w,h}
+参数：{w,h}   
 返回：YoupinImg实例
 
 #### getSize
 获取图片尺寸
-参数：无
+参数：无   
 返回：{w:h}
 图片上不含尺寸时，返回
 ```javascript
