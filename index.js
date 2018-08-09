@@ -120,6 +120,7 @@ export default function YoupinImg(url) {
     const mode = YoupinImg.modeChecker(url, a);
     if (!mode) {
         console.warn(`can't determine the mode of ${url}`);
+        return null;
     }
 
     return new modeMap[mode](url, a);
