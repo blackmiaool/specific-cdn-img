@@ -1,6 +1,6 @@
 {
   "name": "specific-cdn-img",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "",
   "main": "dist/youpin-img.js",
   "scripts": {
@@ -14,9 +14,7 @@
     "type": "git",
     "url": "git+https://github.com/blackmiaool/youpin-img.git"
   },
-  "keywords": [
-    "youpin"
-  ],
+  "keywords": [],
   "author": "blackmiaool",
   "license": "ISC",
   "bugs": {
