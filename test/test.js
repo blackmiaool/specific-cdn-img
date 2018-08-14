@@ -94,8 +94,8 @@ describe("kingsoft mode", function() {
     });
     it("we can get its size", function(done) {
         YoupinImg(urlWithoutSize).getSize().should.deep.equal({
-            w: undefined,
-            h: undefined
+            w: NaN,
+            h: NaN
         });
         YoupinImg(urlWithSize).getSize().should.deep.equal({
             w: testSizeW,
