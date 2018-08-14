@@ -38,8 +38,8 @@ class StandardMode extends Mode {
     }
     getSize() {
         return {
-            w: this.getParam("w"),
-            h: this.getParam("h")
+            w: this.getParam("w")*1,
+            h: this.getParam("h")*1
         };
     }
     resize({w,h}) {
