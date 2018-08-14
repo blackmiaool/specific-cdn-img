@@ -62,8 +62,8 @@ describe("standard mode", function() {
 });
 
 describe("kingsoft mode", function() {
-    const testSizeW = "540";
-    const testSizeH = "846";
+    const testSizeW = 540;
+    const testSizeH = 846;
     const coreUrl = `examplek.com/800_pic/6b5d945739be9da56980a39efb209574.png`;
     const urlWithoutSize = `//${coreUrl}@base@tag=imgScale&et=1&etc=FFFFFF`;
     const urlWithSize = `//${coreUrl}@base@tag=imgScale&h=350&w=550&et=1&eth=${testSizeH}&etw=${testSizeW}&etc=FFFFFF`;
