@@ -6,8 +6,9 @@ function parse(url) {
     return ret;
 }
 class Mode {
-    constructor(url, a) {
+    constructor(url, a, mode) {
         this.a = a;
+        this.mode = mode;
     }
     get url() {
         return URL.format(this.a);
@@ -38,11 +39,11 @@ class StandardMode extends Mode {
     }
     getSize() {
         return {
-            w: this.getParam("w")*1,
-            h: this.getParam("h")*1
+            w: this.getParam("w") * 1,
+            h: this.getParam("h") * 1
         };
     }
-    resize({w,h}) {
+    resize({ w, h }) {
         this.addParams({ w, h });
         return this;
     }
@@ -83,11 +84,11 @@ class KingSoftMode extends Mode {
     }
     getSize() {
         return {
-            w: this.getParam("etw")*1,
-            h: this.getParam("eth")*1
+            w: this.getParam("etw") * 1,
+            h: this.getParam("eth") * 1
         };
     }
-    resize({w,h}) {
+    resize({ w, h }) {
         let inner = {
             w: this.getParam("w"),
             h: this.getParam("h")
@@ -123,5 +124,5 @@ export default function YoupinImg(url) {
         return null;
     }
 
-    return new modeMap[mode](url, a);
+    return new modeMap[mode](url, a, mode);
 }
