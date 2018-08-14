@@ -83,8 +83,8 @@ class KingSoftMode extends Mode {
     }
     getSize() {
         return {
-            w: this.getParam("etw"),
-            h: this.getParam("eth")
+            w: this.getParam("etw")*1,
+            h: this.getParam("eth")*1
         };
     }
     resize({w,h}) {
