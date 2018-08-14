@@ -16,8 +16,8 @@ function addHash(url, hash) {
     return `${url}#${hash}`;
 }
 describe("standard mode", function() {
-    const testSizeW = "500";
-    const testSizeH = "800";
+    const testSizeW = 500;
+    const testSizeH = 800;
     const urlWithoutSize =
         "https://examples.com/app/shop/img?id=shop_b547304e56c54089601373e3840c0710.jpeg";
     const urlWithSize = `${urlWithoutSize}&w=${testSizeW}&h=${testSizeH}`;
@@ -44,8 +44,8 @@ describe("standard mode", function() {
     });
     it("we can get its size", function(done) {
         YoupinImg(urlWithoutSize).getSize().should.deep.equal({
-            w: undefined,
-            h: undefined
+            w: NaN,
+            h: NaN
         });
         YoupinImg(urlWithSize).getSize().should.deep.equal({
             w: testSizeW,
