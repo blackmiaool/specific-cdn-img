@@ -16,6 +16,21 @@ class Mode {
     set url(value) {
         console.warn("u can't set its url");
     }
+    setWebp() {
+        return this;
+    }
+    getParam() {
+        return "";
+    }
+    addParams() {
+        return this;
+    }
+    getSize() {
+        return { w: NaN, h: NaN };
+    }
+    resize() {
+        return this;
+    }
 }
 class StandardMode extends Mode {
     constructor(...props) {
@@ -119,9 +134,8 @@ export default function YoupinImg(url) {
         console.warn("mode checker is needed");
     }
     const mode = YoupinImg.modeChecker(url, a);
-    if (!mode) {
-        console.warn(`can't determine the mode of ${url}`);
-        return null;
+    if (!mode) {        
+        return new Mode(url, a, '');
     }
 
     return new modeMap[mode](url, a, mode);
