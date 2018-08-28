@@ -66,6 +66,11 @@ class StandardMode extends Mode {
 class KingSoftMode extends Mode {
     constructor(...props) {
         super(...props);
+        if (this.url.match(/800_pic/) && !this.url.match(/@/)) {
+            this.a.pathname += "@base@tag=imgScale&h=800&w=800&eth=800&etw=800";
+            const handledUrl = this.url;
+            this.a = parse(handledUrl);
+        }
     }
     setWebp() {
         this.addParam("F", "webp");
@@ -134,8 +139,8 @@ export default function YoupinImg(url) {
         console.warn("mode checker is needed");
     }
     const mode = YoupinImg.modeChecker(url, a);
-    if (!mode) {        
-        return new Mode(url, a, '');
+    if (!mode) {
+        return new Mode(url, a, "");
     }
 
     return new modeMap[mode](url, a, mode);
