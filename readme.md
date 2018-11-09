@@ -5,7 +5,7 @@
 
 https://example.com/app/shop/img?id=shop_3a17d0497ffa7281ceb53b387f82da52.png&w=200&h=200
 
-https://example.com/16a55632e87a32d8104eba0ca7c32cbc.png@base@tag=imgScale&h=350&w=350&et=1&eth=480&etw=480&etc=FFFFFF?w=350&h=350
+https://example.com/16a55632e87a32d8104eba0ca7c32cbc.png@base@tag=imgScale&h=350&w=350&et=1&eth=480&etw=480&etc=FFFFFF
 
 ### 安装
 

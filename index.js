@@ -85,7 +85,7 @@ class KingSoftMode extends Mode {
         return this;
     }
     addParam(key, value, map) {
-        const action = (this.a.pathname.match(/@[\s\S]+?(&|$)/, "?") || [
+        const action = (this.a.pathname.match(/@[\s\S]+?(&|$)/) || [
             "@base@tag=imgScale"
         ])[0];
         let pathname = this.a.pathname;
