@@ -1,5 +1,5 @@
-import YoupinImg from "../index.js";
-YoupinImg.modeChecker = function(url, a) {
+import SpecificCdnImg from "../index.js";
+SpecificCdnImg.modeChecker = function(url, a) {
     if (a.host === "examplek.com") {
         return "kingsoft";
     } else if (a.host === "examples.com") {
@@ -24,32 +24,32 @@ describe("standard mode", function() {
 
     const hash = "bbbccc/dddeee";
     it("it should be created", function(done) {
-        YoupinImg(urlWithSize);
+        SpecificCdnImg(urlWithSize);
         done();
     });
     it("it can be resized", function(done) {
-        YoupinImg(urlWithoutSize)
+        SpecificCdnImg(urlWithoutSize)
             .resize({ w: 100, h: 200 })
             .url.should.equal(`${urlWithoutSize}&w=100&h=200`);
-        YoupinImg(urlWithSize)
+        SpecificCdnImg(urlWithSize)
             .resize({ w: 100, h: 200 })
             .url.should.equal(`${urlWithoutSize}&w=100&h=200`);
-        YoupinImg(addHash(urlWithoutSize, hash))
+        SpecificCdnImg(addHash(urlWithoutSize, hash))
             .resize({ w: 100, h: 200 })
             .url.should.equal(addHash(`${urlWithoutSize}&w=100&h=200`, hash));
-        YoupinImg(addHash(urlWithSize, hash))
+        SpecificCdnImg(addHash(urlWithSize, hash))
             .resize({ w: 100, h: 200 })
             .url.should.equal(addHash(`${urlWithoutSize}&w=100&h=200`, hash));
         done();
     });
     it("we can get its size", function(done) {
-        YoupinImg(urlWithoutSize)
+        SpecificCdnImg(urlWithoutSize)
             .getSize()
             .should.deep.equal({
                 w: NaN,
                 h: NaN
             });
-        YoupinImg(urlWithSize)
+        SpecificCdnImg(urlWithSize)
             .getSize()
             .should.deep.equal({
                 w: testSizeW,
@@ -58,7 +58,7 @@ describe("standard mode", function() {
         done();
     });
     it("we can make it webp", function(done) {
-        YoupinImg(urlWithSize)
+        SpecificCdnImg(urlWithSize)
             .setWebp()
             .url.should.equal(urlWithSize + "&t=webp");
         done();
@@ -75,7 +75,7 @@ describe("kingsoft mode", function() {
 
     const hash = "bbbccc/dddeee";
     it("it should be created", function(done) {
-        YoupinImg(urlWithSize);
+        SpecificCdnImg(urlWithSize);
         done();
     });
     it("it can be resized", function(done) {
@@ -83,22 +83,22 @@ describe("kingsoft mode", function() {
             "https://examplek.com/800_pic/6b5d945739be9da56980a39efb209574.png@base@tag=imgScale&h=200&w=100&eth=200&etw=100";
         let result2 =
             "https://examplek.com/800_pic/6b5d945739be9da56980a39efb209574.png@base@tag=imgScale&h=83&w=102&et=1&eth=200&etw=100&etc=FFFFFF";
-        YoupinImg(urlWithoutSize)
+        SpecificCdnImg(urlWithoutSize)
             .resize({ w: 100, h: 200 })
             .url.should.equal(result1);
-        YoupinImg(urlWithSize)
+        SpecificCdnImg(urlWithSize)
             .resize({ w: 100, h: 200 })
             .url.should.equal(result2);
-        YoupinImg(addHash(urlWithoutSize, hash))
+        SpecificCdnImg(addHash(urlWithoutSize, hash))
             .resize({ w: 100, h: 200 })
             .url.should.equal(addHash(result1, hash));
-        YoupinImg(addHash(urlWithSize, hash))
+        SpecificCdnImg(addHash(urlWithSize, hash))
             .resize({ w: 100, h: 200 })
             .url.should.equal(addHash(result2, hash));
         done();
     });
     it("can handle 800_pic", function(done) {
-        YoupinImg(urlWithoutSize)
+        SpecificCdnImg(urlWithoutSize)
             .getSize()
             .should.deep.equal({
                 w: 800,
@@ -107,19 +107,19 @@ describe("kingsoft mode", function() {
         done();
     });
     it("we can get its size", function(done) {
-        YoupinImg(urlWithoutSize)
+        SpecificCdnImg(urlWithoutSize)
             .getSize()
             .should.deep.equal({
                 w: 800,
                 h: 800
             });
-        YoupinImg(no800url)
+        SpecificCdnImg(no800url)
             .getSize()
             .should.deep.equal({
                 w: NaN,
                 h: NaN
             });
-        YoupinImg(urlWithSize)
+        SpecificCdnImg(urlWithSize)
             .getSize()
             .should.deep.equal({
                 w: testSizeW,
@@ -128,7 +128,7 @@ describe("kingsoft mode", function() {
         done();
     });
     it("we can make it webp", function(done) {
-        YoupinImg(urlWithSize)
+        SpecificCdnImg(urlWithSize)
             .setWebp()
             .url.should.equal(
                 `https://${coreUrl}@base@tag=imgScale&h=350&w=550&et=1&eth=${testSizeH}&etw=${testSizeW}&etc=FFFFFF&F=webp`
