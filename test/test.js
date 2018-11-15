@@ -69,7 +69,7 @@ describe("kingsoft mode", function() {
     const testSizeW = 540;
     const testSizeH = 846;
     const coreUrl = `examplek.com/800_pic/6b5d945739be9da56980a39efb209574.png`;
-    const urlWithoutSize = `//${coreUrl}`;
+    const urlWithoutSize = `//${coreUrl}`;    
     const no800url = `//examplek.com/801_pic/6b5d945739be9da56980a39efb209574.png`;
     const urlWithSize = `//${coreUrl}@base@tag=imgScale&h=350&w=550&et=1&eth=${testSizeH}&etw=${testSizeW}&etc=FFFFFF`;
 
@@ -83,6 +83,10 @@ describe("kingsoft mode", function() {
             "https://examplek.com/800_pic/6b5d945739be9da56980a39efb209574.png@base@tag=imgScale&h=200&w=100&eth=200&etw=100";
         let result2 =
             "https://examplek.com/800_pic/6b5d945739be9da56980a39efb209574.png@base@tag=imgScale&h=83&w=102&et=1&eth=200&etw=100&etc=FFFFFF";
+        let result3=`https://examplek.com/801_pic/6b5d945739be9da56980a39efb209574.png@base@tag=imgScale&etw=100&eth=200`
+        SpecificCdnImg(no800url)
+            .resize({ w: 100, h: 200 })
+            .url.should.equal(result3);
         SpecificCdnImg(urlWithoutSize)
             .resize({ w: 100, h: 200 })
             .url.should.equal(result1);
