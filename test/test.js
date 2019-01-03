@@ -72,6 +72,7 @@ describe("kingsoft mode", function() {
     const urlWithoutSize = `//${coreUrl}`;    
     const no800url = `//examplek.com/801_pic/6b5d945739be9da56980a39efb209574.png`;
     const urlWithSize = `//${coreUrl}@base@tag=imgScale&h=350&w=550&et=1&eth=${testSizeH}&etw=${testSizeW}&etc=FFFFFF`;
+    const ksWithSize2=`https://examplek.com/a/6b5d945739be9da56980a39efb209574.png?w=100&h=200`;
 
     const hash = "bbbccc/dddeee";
     it("it should be created", function(done) {
@@ -84,6 +85,7 @@ describe("kingsoft mode", function() {
         let result2 =
             "https://examplek.com/800_pic/6b5d945739be9da56980a39efb209574.png@base@tag=imgScale&h=83&w=102&et=1&eth=200&etw=100&etc=FFFFFF";
         let result3=`https://examplek.com/801_pic/6b5d945739be9da56980a39efb209574.png@base@tag=imgScale&etw=100&eth=200`
+        let result4=`https://examplek.com/a/6b5d945739be9da56980a39efb209574.png@base@tag=imgScale&h=400&w=200&eth=400&etw=200`;
         SpecificCdnImg(no800url)
             .resize({ w: 100, h: 200 })
             .url.should.equal(result3);
@@ -93,6 +95,11 @@ describe("kingsoft mode", function() {
         SpecificCdnImg(urlWithSize)
             .resize({ w: 100, h: 200 })
             .url.should.equal(result2);
+
+        SpecificCdnImg(ksWithSize2)
+            .resize({ w: 200, h: 400 })
+            .url.should.equal(result4);
+
         SpecificCdnImg(addHash(urlWithoutSize, hash))
             .resize({ w: 100, h: 200 })
             .url.should.equal(addHash(result1, hash));

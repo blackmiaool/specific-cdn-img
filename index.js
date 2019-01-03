@@ -66,8 +66,15 @@ class StandardMode extends Mode {
 class KingSoftMode extends Mode {
     constructor(...props) {
         super(...props);
-        if (this.url.match(/800_pic/) && !this.url.match(/@/)) {
-            this.a.pathname += "@base@tag=imgScale&h=800&w=800&eth=800&etw=800";
+        if (!this.url.match(/@/)) {
+            if(this.url.match(/\?w=/)){
+                const w=this.url.match(/w=(\d+)/)[1];
+                const h=this.url.match(/h=(\d+)/)[1];
+                this.a.pathname += `@base@tag=imgScale&h=${h}&w=${w}&eth=${h}&etw=${w}`;
+                this.a.query=''
+            }else if(this.url.match(/800_pic/)){
+                this.a.pathname += "@base@tag=imgScale&h=800&w=800&eth=800&etw=800";
+            }            
             const handledUrl = this.url;
             this.a = parse(handledUrl);
         }
